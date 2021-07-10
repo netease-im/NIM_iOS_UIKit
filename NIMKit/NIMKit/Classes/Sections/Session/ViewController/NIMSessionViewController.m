@@ -148,6 +148,9 @@
 {
     [super viewWillDisappear:animated];
     [self.sessionInputView endEditing:YES];
+
+    [[NIMSDK sharedSDK].mediaManager cancelRecord];
+    [[NIMSDK sharedSDK].mediaManager stopPlay];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -620,6 +623,8 @@
 - (BOOL)onLongPressCell:(NIMMessage *)message
                  inView:(UIView *)view
 {
+    [[NIMSDK sharedSDK].mediaManager stopPlay];
+    
     BOOL handle = NO;
     _messageForMenu = message;
     [self.interactor setReferenceMessage:message];
